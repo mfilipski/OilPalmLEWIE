@@ -179,7 +179,7 @@ xlrevsh_row(g,h) = alldata("revsh_row",g,"","",h) ;
 xlwrkagepop(h)      = alldata("wrkagepop", "","","",h)
 
 
-display xlidsh, xlfshare, xlfshare_se,  xleshare, xlemin, xlendow, xlROCendow, xlROWendow,
+display xlqp, xlidsh, xlfshare, xlfshare_se,  xleshare, xlemin, xlendow, xlROCendow, xlROWendow,
      xlTROUTsh, xlTRINsh, xlTROUTsh_se, xlTRINsh_se, xlSAVsh, xlSAVsh_se,
      xlexpoutsh, xlremit, xlothertransfers, xlnhh, xlhhinc, xlhhexp, xlhhsize, xlrevsh_vil, xlrevsh_zoi,
      xlrevsh_rol, xlrevsh_row ;

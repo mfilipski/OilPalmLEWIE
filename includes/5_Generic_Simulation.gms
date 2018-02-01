@@ -3,9 +3,12 @@
 
 transfer(h)=0 ;
 * simulation shocks for fixed factor:
+display "this is the original fixfac", fixfac ;
 fixfac_t(g,f,h) = fixfac(g,f,h) + fsim(g,f,h,sim) ;
-display "this is the first change of fixfac", fixfac_t ;
+display "this is the shock to fixfac", fsim ;
+display "this is the new fixfac - temporary", fixfac_t ;
 
+* This code harmonizes the fixfac_t (temp) in each simulations loop
 fixfacsim_dr_t(g,f,h,draw,sim)= fixfac_t(g,f,h) ;
 * if negative, replace with 0.1:
 negfixfac(g,f,h,draw,sim)$(fixfac_t(g,f,h) < 0)  = fixfac_t(g,f,h) ;

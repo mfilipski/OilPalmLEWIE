@@ -303,7 +303,7 @@ benefdum(h,sim)$sum((g,f),fsim(g,f,h,sim)) = 1 ;
 simval(sim)= sum((g,f,h),fsim(g,f,h,sim)) ;
 benefryD(sim,"mean") = sum(h$(benefdum(h,sim)), ry_mvD(h,sim,"mean")) ;
 nbenefryD(sim,"mean") = sum(h$(not benefdum(h,sim)), ry_mvD(h,sim,"mean")) ;
-mult(sim,"mean") = (benefryD(sim,"mean") + nbenefryD(sim,"mean")) / simval(sim) ;
+mult(sim,"mean")$simval(sim) = (benefryD(sim,"mean") + nbenefryD(sim,"mean")) / simval(sim) ;
 display benefdum, benefryD, nbenefryD, simval, mult ;
 
 
@@ -466,5 +466,5 @@ parameters
 ;
 benefrycD(sim,"mean") = sum(h$(benefdum(h,sim)), ry_mvcD(h,sim,"mean")) ;
 nbenefrycD(sim,"mean") = sum(h$(not benefdum(h,sim)), ry_mvcD(h,sim,"mean")) ;
-multc(sim,"mean") = (benefrycD(sim,"mean") + nbenefrycD(sim,"mean")) / simval(sim) ;
+multc(sim,"mean")$simval(sim) = (benefrycD(sim,"mean") + nbenefrycD(sim,"mean")) / simval(sim) ;
 display benefrycD, nbenefrycD, multc ;

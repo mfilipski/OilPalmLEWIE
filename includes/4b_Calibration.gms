@@ -164,7 +164,10 @@ smallzoi_dr(h,draw)$(expzoish_dr(h,draw) < 0.5) = yes ;
 ABORT$(card(smallzoi_dr)) "These household spend less than 50% of income in the zoi", smallzoi_dr ;
 
 * LEVELS OF CONSUMPTION:
-qc_dr(g,h,draw) = (y_dr(h,draw)-sav_dr(h,draw)-trout_dr(h,draw)-exproc_dr(h,draw))*eshare_dr(g,h,draw)/ph_dr(g,h,draw) ;
+display  ph_dr, g,h ;
+
+qc_dr(g,h,draw) = (y_dr(h,draw)-sav_dr(h,draw)-trout_dr(h,draw)-exproc_dr(h,draw))
+                 *eshare_dr(g,h,draw)/ph_dr(g,h,draw) ;
 
 display qc_dr ;
 
@@ -231,7 +234,9 @@ parameter qpshare(h,g) share of household h in production of g ;
 * qp_dr(g,h,draw)$(gag(g)*hnc(h)) = qc_dr(g,h,draw) ;
 * display qp_dr ;
 * qp_dr(g,h,draw)$(gag(g)*hc(h))  = qc_dr(g,h,draw) ;
-*qpshare(h,g)$gag(g) = qp_dr(g,h,"dr0")/sum(hh,qp_dr(g,hh,"dr0")) ;
+* qpshare(h,g)$gag(g) = qp_dr(g,h,"dr0")/sum(hh,qp_dr(g,hh,"dr0")) ;
+display g, hh, qp_dr, gp;
+
 qpshare(h,g)$gp(g) = qp_dr(g,h,"dr0")/sum(hh,qp_dr(g,hh,"dr0")) ;
 display qp_dr, qpshare ;
 

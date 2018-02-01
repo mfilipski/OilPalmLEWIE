@@ -17,7 +17,7 @@ $onsymxref
 $setglobal data_input "Kalangala_LEWIE_InputSheet_mf"
 *$setglobal data_input "AQ_LEWIE_InputSheet"
 * name of index sheet (village-specific):
-$setglobal input_sheet_index "Index!A2"
+$setglobal input_sheet_index "Index_divided!A2"
 * name file containing simulation dashboard
 $setglobal sim_dashboard "Kalangala_LEWIE_SimDashboard"
 * name of include file containing village-specific assumptions
@@ -108,7 +108,6 @@ $include includes/4a_DefineAllParameters.gms
 * ================================================================================================
 $include includes/4b_Calibration.gms
 
-$exit
 
 
 * ================================================================================================
@@ -196,8 +195,8 @@ display PV.l, PZ.l, PH.l, PVA.l, QVA.l, FD.l, QP.l, ID.l, QC.l, Y.l, CPI.l, RY.l
 * RE-CALIBRATION
 *---------------------------------
 * set iterlim to 2 when using nlp, to 1 when using mcp. It's all about a difference between CONPT and PATH solvers.
-option iterlim = 2 ;
-*solve genCD using mcp ;
+option iterlim = 1 ;
+solve genCD using mcp ;
 *solve genCDnlp using nlp maximizing USELESS ;
 option iterlim=1000000;
 ABORT$(genCD.modelstat ne 1) "NOT WELL CALIBRATED IN THIS DRAW - CHECK THE DATA INPUTS" ;
@@ -402,9 +401,12 @@ rytheil2(draw,sim)        = sum(h, ry2(h,draw,sim)/xlnhh(h)/mry2(draw,sim)
 * ================================================================================================
 display "THIS IS THE END OF THE LOOP" ;
 );
+
+
 display modstat_dr ;
 display negfixfac, fixfac_t, fixfac, fixfacsim_dr ;
 negfixfacnum(sim) = sum((g,f,h,draw)$negfixfac(g,f,h,draw,sim),1) ;
+
 
 display_pars(1);
 display_pars(2);

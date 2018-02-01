@@ -37,7 +37,8 @@ set
      gtv(g)    goods tradable in the village / ser, ret, meat, fish, crop  /
      gtz(g)    goods tradable in the zoi   / null /
      gtw(g)    goods tradable with the rest of the world / out, palmoil /
-     gp(g)     goods that are produces /  palmoil, ser, ret, meat, fish, crop /
+     gp(g)     goods that are produced by at least one hh group
+                  /  palmoil, ser, ret, meat, fish, crop /
      gag(g)    ag goods / palmoil, crop, meat, fish /
      gnag(g)   non ag goods / ser, ret, null /
 
