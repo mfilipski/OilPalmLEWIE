@@ -24,7 +24,7 @@ display fshare_o, fsharesd_o, eshare_o, esharesd_o, idsh_o, idshsd_o ;
 parameter effidsh(g,gfac,h,draw,sim) effective id share ;
 effidsh(g,gfac,h,draw,sim)$qp1(g,h,draw,sim) = id1(g,gfac,h,draw,sim) / qp1(g,h,draw,sim);
 display effidsh ;
-$exit
+
 
 * Result parameters:
 Parameter
@@ -109,8 +109,8 @@ spill_share(h,sim)       = spill_inc(h,sim) / all_revenue(h,sim) ;
 display income_lab, income_act, spill_inc, all_revenue, spill_share ;
 
 
-display pv_o ;
-pv_o(g,sim)$pv_mvcPC(g,"AQUA",sim,"mean") = pv_mvcPC(g,"AQUA",sim,"mean") ;
+*display pv_o ;
+*pv_o(g,sim)$pv_mvcPC(g,"AQUA",sim,"mean") = pv_mvcPC(g,"AQUA",sim,"mean") ;
 
 
 
@@ -122,7 +122,7 @@ Display "this is the number of sims that had to be corrected", negfixfacnum ;
 execute_unload "outxl.gdx" modstat ty_o try_o ry_o tqp_o tqpsd_o benefs_o pv_o hlsup_o lsup_o nreps_o fshare_o
                fsharesd_o, eshare_o, esharesd_o, idsh_o, idshsd_o,
                qpd_o, qpd_os, prevd_o, pcostd_o, pprofd_o , fdD_o, idD_o, qpdsim1_o;
-* And this writes in an excel sheet called "MakeMeASam":
+* And this writes in an excel sheet defined at the top of the "maincode" file:
 execute "xlstalk.exe -s   %output_xl_file%" ;
 execute "gdxxrw.exe outxl.gdx  o=%output_xl_file% index=index!a2" ;
 execute 'xlstalk.exe -O %output_xl_file%' ;
