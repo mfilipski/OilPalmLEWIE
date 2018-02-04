@@ -34,7 +34,7 @@ $setglobal output_xl_file "Kalangala_LEWIE_AutoOut.xlsx"
 * choose the number of draws (the second number)
 * nb: must be greater than 10 to allow for percentiles to be computed
 *option seed = 500;
-set draw /dr0*dr50/ ;
+set draw /dr0*dr10/ ;
 
 
 

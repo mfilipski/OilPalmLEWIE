@@ -116,7 +116,7 @@ idD_o(h,g,gfac,mv,sim)$(not idD_o(h,g,gfac,mv,sim))              = eps;
 pv_o(g,sim)$(not pv_o(g,sim))                                    = eps;
 hlsup_o(h,sim)$(not hlsup_o(h,sim))                              = eps;
 lsup_o(sim)$(not lsup_o(sim))                                    = eps;
-modstat(sim)$(not modstat(sim))                                  = eps; 
+modstat(sim)$(not modstat(sim))                                  = eps;
 
 
 
@@ -134,10 +134,6 @@ spill_share(h,sim)$all_revenue(h,sim)
                          = spill_inc(h,sim) / all_revenue(h,sim) ;
 
 display income_lab, income_act, spill_inc, all_revenue, spill_share ;
-
-
-*display pv_o ;
-*pv_o(g,sim)$pv_mvcPC(g,"AQUA",sim,"mean") = pv_mvcPC(g,"AQUA",sim,"mean") ;
 
 
 
