@@ -1,35 +1,40 @@
 
 
-
+* Transfer simulation (Not set up)
+*==========================================
 transfer(h)=0 ;
+
+
+* Increase in oilpalm acreage simulation
+*======================================================
 * simulation shocks for fixed factor:
 display "this is the original fixfac", fixfac ;
-fixfac_t(g,f,h) = fixfac(g,f,h) + fsim(g,f,h,sim) ;
-display "this is the shock to fixfac", fsim ;
+fixfac_t(g,f,h) = fixfac(g,f,h) + facsim(g,f,h,sim) ;
+display "this is the shock to fixfac", facsim ;
 display "this is the new fixfac - temporary", fixfac_t ;
 
-* This code harmonizes the fixfac_t (temp) in each simulations loop
+* This code harmonizes the fixfac_t (temporary) in each simulations loop
+* Necessary in case the shock is negative and larger than original draw (unlikely)
 fixfacsim_dr_t(g,f,h,draw,sim)= fixfac_t(g,f,h) ;
 * if negative, replace with 0.1:
 negfixfac(g,f,h,draw,sim)$(fixfac_t(g,f,h) < 0)  = fixfac_t(g,f,h) ;
 fixfac(g,f,h) = fixfac_t(g,f,h) ;
 fixfac(g,f,h)$(fixfac_t(g,f,h) < 0) = 0.1 ;
 fixfacsim_dr(g,f,h,draw,sim)= fixfac(g,f,h) ;
-*fixfac("Fish","Land","AqFSm") = fixfac("Fish","Land","AqFSm") +2 ;
-*fixfac("Fish","Land","AqFBg") = fixfac("Fish","Land","AqFBg") +2 ;
-*fixfac("Crop","Land","AqAg") = fixfac("Crop","Land","AqAg") +0.7 ;
-display "this is the first change of fixfac", fixfac_t ;
 
 
-PZ.fx("palmoil")$sameas(sim,"sim4") = PZ.l("palmoil")*0.9 ;
+* Increase in oil price simulation
+*======================================================
+PZ.fx(gtw)$pzsim(gtw,sim) = PZ.l(gtw)*(1+pzsim(gtw,sim)/100) ;
+
+
+* Increase in total factor productivity simulation
+*======================================================
+pshift(g,h)$pshiftsim(g,h,sim) = pshift(g,h)*(1+pshiftsim(g,h,sim)/100) ;
+
 
 
 $ontext
-
-
-
-
-
 
 *baseline parameters
 transfer(h) = 0 ;

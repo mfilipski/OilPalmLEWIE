@@ -11,12 +11,12 @@ idsh_o(g,gg,h)
 idshsd_o(g,gg,h)
 ;
 
-fshare_o(g,f,h)  = fshare_mv1(g,f,h,"sim1","mean") ;
-fsharesd_o(g,f,h)= fshare_mv1(g,f,h,"sim1","stdev") ;
-eshare_o(g,h)    = eshare_mv1(g,h,"sim1","mean") ;
-esharesd_o(g,h)  = eshare_mv1(g,h,"sim1","stdev") ;
-idsh_o(g,gg,h)   = idsh_mv1(g,gg,h,"sim1","mean") ;
-idshsd_o(g,gg,h) = idsh_mv2(g,gg,h,"sim1","stdev") ;
+fshare_o(g,f,h)  = fshare_mvdr(g,f,h,"mean") ;
+fsharesd_o(g,f,h)= fshare_mvdr(g,f,h,"stdev") ;
+eshare_o(g,h)    = eshare_mvdr(g,h,"mean") ;
+esharesd_o(g,h)  = eshare_mvdr(g,h,"stdev") ;
+idsh_o(g,gg,h)   = idsh_mvdr(g,gg,h,"mean") ;
+idshsd_o(g,gg,h) = idsh_mvdr(g,gg,h,"stdev") ;
 
 
 display fshare_o, fsharesd_o, eshare_o, esharesd_o, idsh_o, idshsd_o ;
@@ -57,6 +57,8 @@ display tyPC, tryPC, tyD, tryD ;
 display ty_mvcD, ty_mvcD, try_mvcD, try_mvcD, y_mvD, y_mvcD, tqp_mvD, tqp_mvcD ;
 display qp_mvcD, fd_mvcD ;
 
+
+* Assign values
 ty_o(sim) = ty_mvcD(sim,"mean") ;
 try_o("mean",sim) = try_mvcD(sim, "mean") ;
 try_o("stdev",sim) = try_mvcD(sim, "stdev") ;
@@ -83,15 +85,39 @@ prevd_o(g,h,sim)         =  prev_mvcD(g,h,sim,"mean") ;
 pcostd_o(g,h,sim)        =  pcost_mvcD(g,h,sim,"mean") ;
 pprofd_o(g,h,sim)        =  pprof_mvcD(g,h,sim,"mean") ;
 
-qpdsim1_o(g,mv,h)        = qp_mvcD(g,h,"sim1",mv)  ;
-
 fdD_o(h,g,f,mv,sim)      = fd_mvcD(g,f,h,sim,mv) ;
 idD_o(h,g,gfac,mv,sim)   = id_mvcD(g,gfac,h,sim,mv) ;
 
-*nbenef_o(sim) = nbenefryD(sim,"mean") ;
 pv_o(g,sim) = 1E-13 ;
 hlsup_o(h,sim) = hfsup_mvcD("labor",h,sim,"mean") ;
 lsup_o(sim) = fsup_mvcD("labor",sim,"mean") ;
+
+* Fill in with "eps" if they are indexed by "sim"
+* to keep number of columns in output sheet
+ty_o(sim)$(not ty_o(sim))                        = eps;
+try_o(mv, sim)$(not try_o(mv,sim))               = eps;
+ry_o(h,sim)$(not ry_o(h,sim))                    = eps;
+tqp_o(g,sim)$(not tqp_o(g,sim))                  = eps;
+tqpsd_o(g,sim)$(not tqpsd_o(g,sim))                              = eps;
+benefs_o("benef", sim)$(not benefs_o("benef", sim))              = eps;
+benefs_o("non-benef", sim)$(not benefs_o("non-benef", sim))      = eps;
+benefs_o("simval", sim)$(not benefs_o("simval", sim) )           = eps;
+benefs_o("mult", sim)$(not benefs_o("mult", sim))                = eps;
+benefs_o("mincPC", sim)$(not benefs_o("mincPC", sim))            = eps;
+benefs_o("rytheilPC", sim)$(not benefs_o("rytheilPC", sim))      = eps;
+benefs_o("rytheilPCsd", sim)$(not benefs_o("rytheilPCsd", sim))  = eps;
+qpd_o(g,h,sim)$(not qpd_o(g,h,sim))                              = eps;
+qpd_os(g,h,sim)$(not qpd_os(g,h,sim))                            = eps;
+prevd_o(g,h,sim)$(not prevd_o(g,h,sim))                          = eps;
+pcostd_o(g,h,sim)$(not pcostd_o(g,h,sim))                        = eps;
+pprofd_o(g,h,sim)$(not pprofd_o(g,h,sim) )                       = eps;
+fdD_o(h,g,f,mv,sim)$(not fdD_o(h,g,f,mv,sim))                    = eps;
+idD_o(h,g,gfac,mv,sim)$(not idD_o(h,g,gfac,mv,sim))              = eps;
+pv_o(g,sim)$(not pv_o(g,sim))                                    = eps;
+hlsup_o(h,sim)$(not hlsup_o(h,sim))                              = eps;
+lsup_o(sim)$(not lsup_o(sim))                                    = eps;
+modstat(sim)$(not modstat(sim))                                  = eps; 
+
 
 
 * Calculate share of income that come from each income activity:
@@ -103,8 +129,9 @@ parameter income_act(g,h,sim) income from a given source
 income_lab(h,sim)        = finc_mvcD("labor",h,sim,"mean") ;
 income_act(g,h,sim)      = pprof_mvcD(g,h,sim,"mean") ;
 all_revenue(h,sim)       = income_lab(h,sim) + sum(g, income_act(g,h,sim)) ;
-spill_inc(h,sim)         = sum((g,f)$fsim(g,f,h,sim), income_act(g,h,sim))   ;
-spill_share(h,sim)       = spill_inc(h,sim) / all_revenue(h,sim) ;
+spill_inc(h,sim)         = sum((g,f)$facsim(g,f,h,sim), income_act(g,h,sim))   ;
+spill_share(h,sim)$all_revenue(h,sim)
+                         = spill_inc(h,sim) / all_revenue(h,sim) ;
 
 display income_lab, income_act, spill_inc, all_revenue, spill_share ;
 

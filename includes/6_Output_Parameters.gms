@@ -299,14 +299,22 @@ parameters
          theil(sim,mv)     theil index
 
 ;
-benefdum(h,sim)$sum((g,f),fsim(g,f,h,sim)) = 1 ;
-simval(sim)= sum((g,f,h),fsim(g,f,h,sim)) ;
+benefdum(h,sim)$sum((g,f),facsim(g,f,h,sim)) = 1 ;
+simval(sim)= sum((g,f,h),facsim(g,f,h,sim)) ;
 benefryD(sim,"mean") = sum(h$(benefdum(h,sim)), ry_mvD(h,sim,"mean")) ;
 nbenefryD(sim,"mean") = sum(h$(not benefdum(h,sim)), ry_mvD(h,sim,"mean")) ;
 mult(sim,"mean")$simval(sim) = (benefryD(sim,"mean") + nbenefryD(sim,"mean")) / simval(sim) ;
 display benefdum, benefryD, nbenefryD, simval, mult ;
 
 
+fshare_mvdr(g,f,h,"mean")     =   sum(draw, fshare_dr(g,f,h,draw)) / card(draw) ;
+fshare_mvdr(g,f,h,"stdev")    =   sqrt(sum(draw, sqr(fshare_dr(g,f,h,draw) - fshare_mvdr(g,f,h,"mean")))/(card(draw)-1)) ;
+eshare_mvdr(g,h,"mean")       =   sum(draw, eshare_dr(g,h,draw)) / card(draw) ;
+eshare_mvdr(g,h,"stdev")      =   sqrt(sum(draw, sqr(eshare_dr(g,h,draw) - eshare_mvdr(g,h,"mean")))/(card(draw)-1)) ;
+idsh_mvdr(g,gg,h,"mean")      =   sum(draw, idsh_dr(g,gg,h,draw)) / card(draw) ;
+idsh_mvdr(g,gg,h,"stdev")     =   sqrt(sum(draw, sqr(idsh_dr(g,gg,h,draw) - idsh_mvdr(g,gg,h,"mean")))/(card(draw)-1)) ;
+
+display fshare_mvdr, eshare_mvdr, idsh_mvdr ;
 
 
 

@@ -34,7 +34,7 @@ $setglobal output_xl_file "Kalangala_LEWIE_AutoOut.xlsx"
 * choose the number of draws (the second number)
 * nb: must be greater than 10 to allow for percentiles to be computed
 *option seed = 500;
-set draw /dr0*dr10/ ;
+set draw /dr0*dr50/ ;
 
 
 
@@ -70,7 +70,6 @@ set draw /dr0*dr10/ ;
 * ================================================================================================
 * ================================================================================================
 $include includes/1_Read_Excel.gms
-
 
 * ================================================================================================
 * ================================================================================================
@@ -116,7 +115,7 @@ $include includes/4b_Calibration.gms
 * ======================================== AND SIMULATIONS =======================================
 * ================================================================================================
 * The zero draw is using the mean values. Starting after dr1, those values are randomely drawn.
-loop((draw, sim),
+loop((draw, sim)$simactive(sim),
 display "THIS IS THE BEGINNING OF THE LOOP" ;
 * re-initialise all the variables in the matrix
 * but this time not at the I levels - rather, at the _dr levels
@@ -204,7 +203,7 @@ display genCD.modelstat ;
 display PV.l, PZ.l, PH.l, PVA.l, QVA.l, FD.l, QP.l, ID.l, QC.l, Y.l, Y.l, CPI.l, RY.l, SAV.l, EXPROC.l, HMS.l, VMS.l, ZMS.l, R.l, WZ.l, HFMS.l, VFMS.l, ZFMS.l;
 display CPI.l ;
 
-pshift1(g,h,draw,sim)    = pshift(g,h) ;
+pshift1(g,h,draw,sim)   = pshift(g,h) ;
 fshare1(g,f,h,draw,sim) = fshare(g,f,h) ;
 
 pv1(g,v,draw,sim)       = PV.l(g,v) ;

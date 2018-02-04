@@ -49,11 +49,16 @@ $phantom null
 
 * in future: read sim set from excel too:
 set sim simulations  ;
-parameter fsim(g,f,h,sim) shock to the fixed factor parameter;
+parameter simactive(sim)         activate sim or not
+          facsim(g,f,h,sim)      Value shock to the fixed factor parameter
+          pzsim(g,sim)           % shock to the price of a good
+          pshiftsim(g,h,sim)     % shock to the tfp of a production function
+         ;
+
 $call "gdxxrw input=%sim_dashboard%.xlsx output=%sim_dashboard%.gdx index=index!a2"
 $gdxin %sim_dashboard%.gdx
-$load sim fsim
-display sim, fsim ;
+$load sim simactive facsim pzsim pshiftsim
+display sim, simactive, facsim, pzsim, pshiftsim ;
 
 $ontext
 * One acre coming out of nowhere (rental value is 2 lakh in fish, 0.7 lahk in crop, according to our Research Highlights)

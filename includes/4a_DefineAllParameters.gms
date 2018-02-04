@@ -238,5 +238,13 @@ defpars_mv(c2) ;
 defpars_mv(cD) ;
 defpars_mv(cPC) ;
 
+* Define parameters for initial conditions
+parameter fshare_mvdr(g,f,h,mv)
+          eshare_mvdr(g,h,mv)
+          idsh_mvdr(g,gg,h,mv) ;
+
+
+
+
 
 
