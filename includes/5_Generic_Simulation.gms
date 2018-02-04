@@ -21,6 +21,9 @@ fixfacsim_dr(g,f,h,draw,sim)= fixfac(g,f,h) ;
 display "this is the first change of fixfac", fixfac_t ;
 
 
+PZ.fx("palmoil")$sameas(sim,"sim4") = PZ.l("palmoil")*0.9 ;
+
+
 $ontext
 
 
