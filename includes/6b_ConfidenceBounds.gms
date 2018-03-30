@@ -50,5 +50,5 @@ $libinclude rank Torank draw Ranks ci2
          );
 
 );
-display y_mvD;
+display ty_mvD, try_mvD, y_mvD, ry_mvD;
 
